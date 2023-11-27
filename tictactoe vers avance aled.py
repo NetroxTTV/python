@@ -1,5 +1,14 @@
 import random
 
+def AskInt(message: str):
+    while True:
+        try:
+            value: int = int(input(message))
+            return value
+
+        except:
+            print("Please type a number and not a character")
+
 def ShowPlayfield(playfield):
     for i in range(len(playfield)):
         if i%3 == 0:
@@ -16,10 +25,11 @@ def CheckPlacement(playfield, user_choice):
     return False
 
 def PlayerMove(playfield):
-    placement:int = int(input("Where do you want to place you symbole ? (between 1 and 9): "))
+    placement:int = AskInt("Where do you want to place you symbole ? (between 1 and 9): ")
     placement-=1
     while CheckPlacement(playfield, placement) == False:
-        placement:int = int(input("Where do you want to place you symbole, do not put a symobole on a taken area ? : "))
+        placement:int = AskInt("Where do you want to place you symbole, do not put a symobole on a taken area ? : ")
+        placement-=1
     playfield[placement] = "X"
 
 def GetIaMove(playfield:list, lines:list[list] = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]], letters:list = ["O", "X"]):
@@ -95,5 +105,5 @@ def StartGame():
                 return
 
     print(f"The {winner} won the game !")
-    
+
 StartGame()
